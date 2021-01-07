@@ -6,7 +6,7 @@ from web3.auto.infura import infura
 def sendMessage(_message):
     bot = os.getenv('TELEGRAM_BOT')
     botKey = os.getenv('TELEGRAM_BOT_KEY')
-    receiver = 1078114516
+    receiver = os.getenv('RECEIVER')
     baseUrl = 'https://api.telegram.org/bot{}:{}/sendMessage?' \
               'chat_id={}&text="{}"'.format(bot, botKey, receiver, _message)
     requests.get(baseUrl)
@@ -21,7 +21,6 @@ def getTransactionReceiver(_transaction):
 
 
 def getTransactionReceipt(_transactionHash):
-    # return infura.eth.getTransactionReceipt(_transactionHash)
     return infura.eth.waitForTransactionReceipt(_transactionHash)
 
 
@@ -130,8 +129,6 @@ while True:
                                   'Address: {}'.format(name, symbol, str(totalSupply), str(address))
                         p(message)
                         sendMessage(message)
-
                     except:
                         p('It wasn\'t  a Token')
     recentBlockNumber = blockNumber
-
